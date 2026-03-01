@@ -1,16 +1,34 @@
-# flutter_practice_data_warehouse
+# 📝 Flutter Web + SQLite Practice
+Just a playground project to figure out how SQLite works on the Web using Flutter. The goal was to stop just printing to the console and actually build a functional UI that saves data.
 
-A new Flutter project.
+## 🛠 What I learned
 
-## Getting Started
+Async/Await: Databases take time to respond. I learned to use await so the app doesn't try to read data before the file is even open.
 
-This project is a starting point for a Flutter application.
+State Management: Using setState() to tell Flutter "Hey, I added a task, refresh the list!"
 
-A few resources to get you started if this is your first Flutter project:
+## 🏗 How it's built
+1. The "Brain" (DatabaseHelper)
+Instead of putting SQL code everywhere, I put it all in one class.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Factory: It "manufactures" the web connection.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Static: There's only ever one database connection running (Singleton pattern).
+
+Null Safety: Used ? and ! to handle cases where the database might not be initialized yet.
+
+2. The "Face" (TaskScreen)
+A StatefulWidget that actually shows the data.
+
+initState: Loads the data as soon as the app starts.
+
+FutureBuilder: (I used this early on, but switched to setState for more control).
+
+ListView.builder: Efficiently creates the list of tasks so it only renders what's on screen.
+
+## 🚀 How to run it
+Make sure web/sqlite3.wasm exists.
+
+Run flutter pub get.
+
+Hit flutter run -d chrome.
